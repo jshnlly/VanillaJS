@@ -1,36 +1,32 @@
-document.getElementById('button').addEventListener('click', loadData);
+document.querySelector('.get-jokes').addEventListener('click', getJokes);
 
-function loadData() {
-    // create an xhr object
+function getJokes(e) {
+    const number = document.querySelector('input[type="number"]').value;
+
     const xhr = new XMLHttpRequest();
 
-    // open
-    xhr.open('GET', 'data.txt', true);
-
-    // optional - used for spinner or loader
-
-    xhr.onprogress = function() {
-        console.log('READYSTATE', xhr.readyState);
-    }
+    xhr.open('GET', `http://api.icndb.com/jokes/random/${number}`, true);
 
     xhr.onload = function() {
-        if(this.status === 200) {
-            // console.log(this.responseText);
-            document.getElementById('output').innerHTML = `<h1>${this.responseText}</h1>`;
+        if (this.status === 200) {
+            const response = JSON.parse(this.responseText);
+            // console.log(response);
+
+            let output = '';
+
+            if (response.type === 'success') {
+                response.value.forEach(function(joke) {
+                    output += `<li>${joke.joke}</li>`
+                });
+            } else {
+                output += '<li>Something went wrong</li>';
+            }
+
+            document.querySelector('.jokes').innerHTML = output;
         }
     }
 
-    // xhr.onreadystatechange = function() {
-    //     console.log('READYSTATE', xhr.readyState);
-
-    //     if (this.status === 200 && this.readyState === 4) {
-    //         console.log(this.responseText);
-    //     }
-    // }
-
-    xhr.onerror = function() {
-        console.log('request error....');
-    }
-
     xhr.send();
+
+    e.preventDefault();
 }
