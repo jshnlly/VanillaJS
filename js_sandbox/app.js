@@ -1,26 +1,33 @@
-const sayHello = function() {
-    console.log('Hello');
+// async function myFunc() {
+//     return 'Hello';
+
+//     const promise = new Promise((resolve, reject) => {
+//         setTimeout(() => resolve('Hello'), 1000);
+//     });
+
+//     const error = true;
+
+//     if(!error) {
+//         const res = await promise;
+//         return res;
+//     } else {
+//         await Promise.reject(new Error('error'));
+//     }
+
+// }
+
+// myFunc()
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err));
+
+async function getUsers() {
+    // await response of fetch call
+    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+
+    // only proceed once promise is resolved 
+    const data = await response.json();
+
+    return data;
 }
 
-const sayHello = () => {
-    console.log('Hello');
-}
-
-
-// one line function does not need braces
-const sayHello = () => console.log('helloooooo');
-
-const sayHello = () => 'Hello';
-
-const sayHello = () => ({ msg: 'Hello' });
-
-// single parameter does not need parenthesis
-const sayHello = name => console.log(`Hello ${name}`);
-
-const users = ['Nathan', 'John', 'William'];
-
-const nameLengths = users.map((name) => {
-    return name.length;
-})
-sayHello('Josh');
-
+getUsers().then(users => console.log(users));
