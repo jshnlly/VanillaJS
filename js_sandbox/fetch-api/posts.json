@@ -1,0 +1,14 @@
+[ 
+    {
+        "title": "post one",
+        "body": "learning to code"
+    },
+    {
+        "title": "post two",
+        "body": "learning react"
+    },
+    {
+        "title": "post three",
+        "body": "learning next.js"
+    }
+]
